@@ -1,9 +1,11 @@
-import { TestBed } from '@angular/core/testing';
-import { AppComponent } from './app.component';
+import {TestBed} from '@angular/core/testing';
+import {AppComponent} from './app.component';
+import {FormsModule} from "@angular/forms";
 
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports: [FormsModule],
       declarations: [
         AppComponent
       ],
@@ -16,10 +18,12 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it('should render title', () => {
+  it('should render input label', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('label')?.textContent).toContain('Search for GitHub user');
+    expect(compiled.querySelector('label')?.textContent).toEqual('Search for GitHub user');
+    let inputId = compiled.querySelector('input')?.id;
+    expect(compiled.querySelector('label')?.htmlFor).toEqual(inputId);
   });
 });

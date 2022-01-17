@@ -1,4 +1,5 @@
 import {Component} from '@angular/core';
+import {PaginationResult, UserSearchService} from "./user-search.service";
 
 @Component({
   selector: 'app-root',
@@ -6,34 +7,32 @@ import {Component} from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  currentText = '';
-  allUsers: string[] = [];
-  users: string[] = [];
-  previousResults = false;
-  nextResults = false;
+  inputText = '';
+  searchText = '';
   totalCount: number | undefined;
+  result: PaginationResult | undefined;
   currentPage = 0;
 
+  constructor(private userSearchService: UserSearchService) {
+  }
+
   searchForUsers() {
-    this.allUsers = this.currentText.split('');
-    this.totalCount = this.allUsers.length;
-    this.users = this.allUsers.slice(0, 10);
-    this.previousResults = false;
-    this.nextResults = this.allUsers.length > 10;
+    this.searchText = this.inputText;
+    let result = this.userSearchService.searchForUsers(this.searchText);
+    this.totalCount = result.totalCount;
+    this.result = result.firstResult;
     this.currentPage = 0;
   }
 
   getPreviousResults() {
-    this.nextResults = true;
+    this.inputText = this.searchText;
     this.currentPage--;
-    this.users = this.allUsers.slice(10 * this.currentPage, 10 * (this.currentPage + 1));
-    this.previousResults = this.currentPage > 0;
+    this.result = this.userSearchService.getPreviousResults(this.searchText, this.currentPage);
   }
 
   getNextResults() {
-    this.previousResults = true;
+    this.inputText = this.searchText;
     this.currentPage++;
-    this.users = this.allUsers.slice(10 * this.currentPage, 10 * (this.currentPage + 1));
-    this.nextResults = this.allUsers.length > 10 * (this.currentPage + 1);
+    this.result = this.userSearchService.getNextResults(this.searchText, this.currentPage);
   }
 }
