@@ -1,7 +1,6 @@
 describe('My First Test', () => {
   it('Visits the initial project page', () => {
-    cy.visit('/')
-    cy.contains('Welcome')
-    cy.contains('github-user-search app is running!')
-  })
-})
+    cy.visit('/');
+    cy.contains('Search for GitHub user');
+  });
+});
