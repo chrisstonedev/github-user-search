@@ -3,7 +3,7 @@ import {AppComponent} from './app.component';
 import {FormsModule} from '@angular/forms';
 import {By} from '@angular/platform-browser';
 import {DebugElement} from '@angular/core';
-import {User, UserSearchService} from './user-search.service';
+import {GetUserResult, UserSearchService} from './user-search.service';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {of} from 'rxjs';
 import {UserComponent} from './user/user.component';
@@ -29,13 +29,27 @@ describe('AppComponent', () => {
     component = fixture.componentInstance;
     service = TestBed.inject(UserSearchService);
     spyOn(service, 'getUsers').and.callFake((searchText, requestedPage) => {
-      let userObject: User;
       return of({
         total_count: 26,
         items: ALPHABET
           .split('')
-          .map(x => ({...userObject, login: x}))
+          .map(x => ({url: x}))
           .slice(10 * (requestedPage - 1), 10 * requestedPage)
+      });
+    });
+    spyOn(service, 'getUser').and.callFake((apiUrl) => {
+      return of<GetUserResult>({
+        avatar_url: '',
+        bio: '',
+        blog: '',
+        company: '',
+        followers: 0,
+        following: 0,
+        html_url: '',
+        location: '',
+        login: apiUrl,
+        name: '',
+        public_repos: 0,
       });
     });
   });

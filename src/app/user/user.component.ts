@@ -1,5 +1,5 @@
 import {Component, Input} from '@angular/core';
-import {User} from '../user-search.service';
+import {GetUserResult} from '../user-search.service';
 
 @Component({
   selector: 'app-user',
@@ -7,5 +7,5 @@ import {User} from '../user-search.service';
   styleUrls: ['./user.component.scss']
 })
 export class UserComponent {
-  @Input() user?: User;
+  @Input() user!: GetUserResult;
 }

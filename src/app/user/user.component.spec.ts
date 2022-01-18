@@ -15,7 +15,6 @@ describe('UserComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(UserComponent);
     component = fixture.componentInstance;
-    component.user = {avatar_url: '', html_url: '', url: '', login: 'hi'};
     fixture.detectChanges();
   });
 

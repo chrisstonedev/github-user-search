@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {User, UserSearchService} from './user-search.service';
+import {GetUserResult, UserSearchService} from './user-search.service';
 
 @Component({
   selector: 'app-root',
@@ -10,7 +10,7 @@ export class AppComponent {
   inputText = '';
   searchText = '';
   totalCount = 0;
-  usersOnPage?: User[];
+  usersOnPage?: GetUserResult[];
   currentPage = 0;
   hasPreviousPage = false;
   hasNextPage = false;
@@ -40,9 +40,19 @@ export class AppComponent {
     this.userSearchService.getUsers(this.searchText, this.currentPage).subscribe({
       next: result => {
         this.totalCount = result.total_count;
-        this.usersOnPage = result.items;
         this.hasPreviousPage = this.currentPage > 1;
         this.hasNextPage = this.totalCount > 10 * this.currentPage;
+        this.usersOnPage = [];
+        for (let item of result.items) {
+          this.userSearchService.getUser(item.url).subscribe({
+            next: value => {
+              this.usersOnPage!.push(value);
+            },
+            error: err => {
+              console.error(err);
+            }
+          });
+        }
       },
       error: error => {
         console.error(error);
