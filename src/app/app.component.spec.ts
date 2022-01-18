@@ -72,7 +72,7 @@ describe('AppComponent', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('label')?.textContent).toEqual('Enter a GitHub username:');
+    expect(compiled.querySelector('label')?.textContent).toEqual('Search for a GitHub user:');
     let inputId = compiled.querySelector('input')?.id;
     expect(compiled.querySelector('label')?.htmlFor).toEqual(inputId);
   });

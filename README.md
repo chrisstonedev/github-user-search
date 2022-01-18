@@ -38,11 +38,14 @@ build and test runs are recorded to a [public dashboard](https://dashboard.cypre
 ## View deployed app
 
 The application has been deployed to https://github-users.chrisstone.dev. The application is hosted
-on [Netlify](https://www.netlify.com/).
+on [Netlify](https://www.netlify.com/). [Deployment logs](https://app.netlify.com/sites/github-user-search-chrisstonedev/deploys) are made available publicly and can be viewed online.
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/caf0035a-d0fb-405c-bdba-c4f07c7f62e8/deploy-status)](https://app.netlify.com/sites/github-user-search-chrisstonedev/deploys)
 
 ## Further help
 
-To get more help on the Angular CLI use `ng help` or go check out
+To get more help on the Angular CLI, use `ng help` or go check out
 the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+
+To get more help on the Netlify CLI, use `netlify help` or go to
+the [Netlify CLI Command List](https://cli.netlify.com/) page.
