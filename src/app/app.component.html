@@ -7,10 +7,12 @@
 </div>
 <div class="pagination-controls">
   <button (click)="getPreviousResults()" *ngIf="result?.hasPreviousResults" aria-label="Get previous page of results"
-          type="button">Previous
+          id="previous" type="button">
+    Previous
   </button>
   <span *ngIf="result">Page {{currentPage + 1}}</span>
-  <button (click)="getNextResults()" *ngIf="result?.hasNextResults" aria-label="Get next page of results" type="button">
+  <button (click)="getNextResults()" *ngIf="result?.hasNextResults" aria-label="Get next page of results" id="next"
+          type="button">
     Next
   </button>
 </div>
