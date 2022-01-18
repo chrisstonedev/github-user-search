@@ -10,7 +10,7 @@ export class AppComponent {
   inputText = '';
   searchText = '';
   totalCount = 0;
-  usersOnPage: string[] = [];
+  usersOnPage: string[] | undefined;
   currentPage = 0;
   hasPreviousPage = false;
   hasNextPage = false;
@@ -20,27 +20,27 @@ export class AppComponent {
 
   searchForUsers() {
     this.searchText = this.inputText;
-    let result = this.userSearchService.searchForUsers(this.searchText);
-    this.totalCount = result.totalCount;
-    this.usersOnPage = result.initialPage;
-    this.currentPage = 0;
-    this.hasPreviousPage = false;
-    this.hasNextPage = this.totalCount > 10;
+    this.currentPage = 1;
+    this.getUsersAndProcessResults();
   }
 
   getPreviousResults() {
     this.inputText = this.searchText;
     this.currentPage--;
-    this.usersOnPage = this.userSearchService.getPage(this.searchText, this.currentPage);
-    this.hasNextPage = true;
-    this.hasPreviousPage = this.currentPage > 0;
+    this.getUsersAndProcessResults();
   }
 
   getNextResults() {
     this.inputText = this.searchText;
     this.currentPage++;
-    this.usersOnPage = this.userSearchService.getPage(this.searchText, this.currentPage);
-    this.hasPreviousPage = true;
-    this.hasNextPage = this.totalCount > 10 * (this.currentPage + 1);
+    this.getUsersAndProcessResults();
+  }
+
+  private getUsersAndProcessResults() {
+    let result = this.userSearchService.getUsers(this.searchText, this.currentPage);
+    this.totalCount = result.totalCount;
+    this.usersOnPage = result.page;
+    this.hasPreviousPage = this.currentPage > 1;
+    this.hasNextPage = this.totalCount > 10 * this.currentPage;
   }
 }

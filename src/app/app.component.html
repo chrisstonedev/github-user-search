@@ -10,7 +10,7 @@
           id="previous" type="button">
     Previous
   </button>
-  <span *ngIf="usersOnPage">Page {{currentPage + 1}}</span>
+  <span *ngIf="usersOnPage">Page {{currentPage}}</span>
   <button (click)="getNextResults()" *ngIf="hasNextPage" aria-label="Get next page of results" id="next"
           type="button">
     Next

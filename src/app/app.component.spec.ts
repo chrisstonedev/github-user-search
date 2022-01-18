@@ -22,12 +22,11 @@ describe('AppComponent', () => {
     fixture = TestBed.createComponent(AppComponent);
     component = fixture.componentInstance;
     service = TestBed.inject(UserSearchService);
-    spyOn(service, 'searchForUsers').and.returnValue({
-      totalCount: 26,
-      initialPage: 'abcdefghij'.split(''),
-    });
-    spyOn(service, 'getPage').and.callFake((searchText, requestedPage) => {
-      return 'abcdefghijklmnopqrstuvwxyz'.split('').slice(requestedPage * 10, 10 * (requestedPage + 1));
+    spyOn(service, 'getUsers').and.callFake((searchText, requestedPage) => {
+      return {
+        totalCount: 26,
+        page: 'abcdefghijklmnopqrstuvwxyz'.split('').slice(10 * (requestedPage - 1), 10 * requestedPage)
+      };
     });
   });
 

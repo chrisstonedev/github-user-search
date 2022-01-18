@@ -8,20 +8,15 @@ export class UserSearchService {
   constructor(private apiService: ApiService) {
   }
 
-  searchForUsers(searchText: string): UserSearchResult {
+  getUsers(searchText: string, requestedPage: number): UserSearchResult {
     let allUsers = this.apiService.getAllUsers(searchText);
-    let totalCount = allUsers.length;
-    let initialPage = allUsers.slice(0, 10);
-    return {totalCount, initialPage};
-  }
-
-  getPage(searchText: string, requestedPage: number): string[] {
-    let allUsers = this.apiService.getAllUsers(searchText);
-    return allUsers.slice(10 * requestedPage, 10 * (requestedPage + 1));
+    let totalCount = allUsers.length
+    let page = allUsers.slice(10 * (requestedPage - 1), 10 * requestedPage);
+    return {totalCount, page}
   }
 }
 
 export interface UserSearchResult {
-  initialPage: string[];
   totalCount: number;
+  page: string[];
 }
