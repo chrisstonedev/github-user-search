@@ -15,6 +15,7 @@ export class AppComponent {
   hasPreviousPage = false;
   hasNextPage = false;
   error = false;
+  resultsPerPage = 10;
 
   constructor(private userSearchService: UserSearchService) {
   }
@@ -37,12 +38,21 @@ export class AppComponent {
     this.getUsersAndProcessResults();
   }
 
+  resultsPerPageChange() {
+    if (this.searchText.length === 0) {
+      return;
+    }
+    this.inputText = this.searchText;
+    this.currentPage = 1;
+    this.getUsersAndProcessResults();
+  }
+
   private getUsersAndProcessResults() {
-    this.userSearchService.getUsers(this.searchText, this.currentPage).subscribe({
+    this.userSearchService.getUsers(this.searchText, this.resultsPerPage, this.currentPage).subscribe({
       next: result => {
         this.totalCount = result.total_count;
         this.hasPreviousPage = this.currentPage > 1;
-        this.hasNextPage = this.totalCount > 10 * this.currentPage;
+        this.hasNextPage = this.totalCount > this.resultsPerPage * this.currentPage;
         this.usersOnPage = result.items.map(x => ({login: x.login, avatar_url: x.avatar_url, html_url: x.html_url}));
         for (let item of result.items) {
           this.userSearchService.getUser(item.url).subscribe({

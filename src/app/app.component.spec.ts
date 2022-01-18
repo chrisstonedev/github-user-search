@@ -27,14 +27,15 @@ describe('AppComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(AppComponent);
     component = fixture.componentInstance;
+    component.resultsPerPage = 10;
     service = TestBed.inject(UserSearchService);
-    spyOn(service, 'getUsers').and.callFake((searchText, requestedPage) => {
+    spyOn(service, 'getUsers').and.callFake((searchText, resultsPerPage, requestedPage) => {
       return of({
         total_count: 26,
         items: ALPHABET
           .split('')
           .map(x => ({url: x, html_url: '', avatar_url: '', login: x}))
-          .slice(10 * (requestedPage - 1), 10 * requestedPage)
+          .slice(resultsPerPage * (requestedPage - 1), resultsPerPage * requestedPage)
       });
     });
     spyOn(service, 'getUser').and.callFake((apiUrl) => {

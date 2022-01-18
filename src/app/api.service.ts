@@ -12,13 +12,14 @@ export class ApiService {
   constructor(private http: HttpClient) {
   }
 
-  searchUsers(searchText: string, requestedPage: number): Observable<UserSearchResult> {
+  searchUsers(searchText: string, resultsPerPage: number, requestedPage: number): Observable<UserSearchResult> {
     return this.http.get<{ data: UserSearchResult }>('/.netlify/functions/getUsers', {
       headers: {
         'Content-Type': 'application/json',
       },
       params: {
         'searchText': searchText,
+        'resultsPerPage': resultsPerPage,
         'requestedPage': requestedPage,
       },
     }).pipe(map(x => x.data));

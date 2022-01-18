@@ -9,8 +9,8 @@ export class UserSearchService {
   constructor(private apiService: ApiService) {
   }
 
-  getUsers(searchText: string, requestedPage: number): Observable<UserSearchResult> {
-    return this.apiService.searchUsers(searchText, requestedPage);
+  getUsers(searchText: string, resultsPerPage: number, requestedPage: number): Observable<UserSearchResult> {
+    return this.apiService.searchUsers(searchText, resultsPerPage, requestedPage);
   }
 
   getUser(userLogin: string): Observable<GetUserResult> {

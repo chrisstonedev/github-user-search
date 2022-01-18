@@ -21,4 +21,12 @@
     Next
   </button>
 </div>
+<div class="results-per-page">
+  <label for="resultsPerPageDropDown">Results per page: </label>
+  <select id="resultsPerPageDropDown" (change)="resultsPerPageChange()" [(ngModel)]="resultsPerPage" class="form-select">
+    <option value="5">5</option>
+    <option value="10">10</option>
+    <option value="20">20</option>
+  </select>
+</div>
 <div class="credit">Created by <a href="https://github.com/chrisstonedev">chrisstonedev</a>.</div>

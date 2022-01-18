@@ -4,12 +4,13 @@ const API_ENDPOINT = 'https://api.github.com/search/users';
 
 exports.handler = async (event, context) => {
   const searchText = event.queryStringParameters && event.queryStringParameters.searchText;
+  const resultsPerPage = event.queryStringParameters && event.queryStringParameters.resultsPerPage;
   const requestedPage = event.queryStringParameters && event.queryStringParameters.requestedPage;
   let response;
   try {
     let requestUrl = API_ENDPOINT + '?' + new URLSearchParams({
       'q': searchText,
-      'per_page': 10,
+      'per_page': resultsPerPage,
       'page': requestedPage
     });
     response = await fetch(requestUrl, {
