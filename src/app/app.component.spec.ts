@@ -5,6 +5,7 @@ import {By} from '@angular/platform-browser';
 import {DebugElement} from '@angular/core';
 import {UserSearchService} from './user-search.service';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
+import {of} from "rxjs";
 
 // noinspection SpellCheckingInspection
 const ALPHABET = 'abcdefghijklmnopqrstuvwxyz';
@@ -27,13 +28,13 @@ describe('AppComponent', () => {
     component = fixture.componentInstance;
     service = TestBed.inject(UserSearchService);
     spyOn(service, 'getUsers').and.callFake((searchText, requestedPage) => {
-      return {
-        totalCount: 26,
-        users: ALPHABET
+      return of({
+        total_count: 26,
+        items: ALPHABET
           .split('')
           .map(x => ({login: x}))
           .slice(10 * (requestedPage - 1), 10 * requestedPage)
-      };
+      });
     });
   });
 

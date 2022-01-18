@@ -37,10 +37,16 @@ export class AppComponent {
   }
 
   private getUsersAndProcessResults() {
-    let result = this.userSearchService.getUsers(this.searchText, this.currentPage);
-    this.totalCount = result.totalCount;
-    this.usersOnPage = result.users;
-    this.hasPreviousPage = this.currentPage > 1;
-    this.hasNextPage = this.totalCount > 10 * this.currentPage;
+    this.userSearchService.getUsers(this.searchText, this.currentPage).subscribe({
+      next: result => {
+        this.totalCount = result.total_count;
+        this.usersOnPage = result.items;
+        this.hasPreviousPage = this.currentPage > 1;
+        this.hasNextPage = this.totalCount > 10 * this.currentPage;
+      },
+      error: error => {
+        console.error(error);
+      }
+    });
   }
 }
