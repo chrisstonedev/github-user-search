@@ -13,16 +13,25 @@ export class ApiService {
   }
 
   searchUsers(searchText: string, requestedPage: number): Observable<UserSearchResult> {
-    let headers = new HttpHeaders().set('Accept', 'application/vnd.github.v3+json');
-    let params = new HttpParams()
-      .set('q', searchText)
-      .append('per_page', 10)
-      .append('page', requestedPage);
+    let headers = new HttpHeaders({
+      'Accept': 'application/vnd.github.v3+json',
+      'Authorization': `Bearer ${process.env['GITHUB_ACCESS_TOKEN']}`
+    });
+    let params = new HttpParams({
+      fromObject: {
+        'q': searchText,
+        'per_page': 10,
+        'page': requestedPage
+      }
+    });
     return this.http.get<UserSearchResult>(this.queryUrl, {headers, params});
   }
 
   getUser(apiUrl: string): Observable<GetUserResult> {
-    let headers = new HttpHeaders().set('Accept', 'application/vnd.github.v3+json');
+    let headers = new HttpHeaders({
+      'Accept': 'application/vnd.github.v3+json',
+      'Authorization': `Bearer ${process.env['GITHUB_ACCESS_TOKEN']}`
+    });
     return this.http.get<GetUserResult>(apiUrl, {headers});
   }
 }
