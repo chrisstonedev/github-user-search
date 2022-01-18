@@ -1,7 +1,10 @@
-<label for="userSearch">Search for GitHub user</label>
-<input (keyup.enter)="searchForUsers()" [(ngModel)]="inputText" id="userSearch" type="text">
-<button (click)="searchForUsers()">Search</button>
-<p *ngIf="usersOnPage">Found {{totalCount}} results:</p>
+<h1>GitHub User Search</h1>
+<div class="form">
+  <label for="userSearch">Enter a GitHub username:</label>
+  <input (keyup.enter)="searchForUsers()" [(ngModel)]="inputText" id="userSearch" type="text">
+  <button (click)="searchForUsers()">Search</button>
+</div>
+<p *ngIf="usersOnPage" class="total-count">Found {{totalCount}} {{totalCount === 1 ? 'result' : 'results'}}:</p>
 <div class="user-results">
   <app-user *ngFor="let user of usersOnPage" [user]="user" class="user-result"></app-user>
 </div>

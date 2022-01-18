@@ -46,11 +46,18 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
+  it('should render title', () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    fixture.detectChanges();
+    const compiled = fixture.nativeElement as HTMLElement;
+    expect(compiled.querySelector('h1')?.textContent).toEqual('GitHub User Search');
+  });
+
   it('should render input label', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('label')?.textContent).toEqual('Search for GitHub user');
+    expect(compiled.querySelector('label')?.textContent).toEqual('Enter a GitHub username:');
     let inputId = compiled.querySelector('input')?.id;
     expect(compiled.querySelector('label')?.htmlFor).toEqual(inputId);
   });
