@@ -42,6 +42,10 @@
  *
  */
 
+(window as any).process = {
+  env: { GITHUB_ACCESS_TOKEN: undefined },
+};
+
 /***************************************************************************************************
  * Zone JS is required by default for Angular itself.
  */
