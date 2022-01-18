@@ -3,7 +3,11 @@ import {AppComponent} from './app.component';
 import {FormsModule} from '@angular/forms';
 import {By} from '@angular/platform-browser';
 import {DebugElement} from '@angular/core';
-import {UserSearchService} from "./user-search.service";
+import {UserSearchService} from './user-search.service';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
+
+// noinspection SpellCheckingInspection
+const ALPHABET = 'abcdefghijklmnopqrstuvwxyz';
 
 describe('AppComponent', () => {
   let component: AppComponent;
@@ -12,7 +16,7 @@ describe('AppComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [FormsModule],
+      imports: [FormsModule, HttpClientTestingModule],
       declarations: [AppComponent],
       providers: [UserSearchService],
     }).compileComponents();
@@ -25,7 +29,10 @@ describe('AppComponent', () => {
     spyOn(service, 'getUsers').and.callFake((searchText, requestedPage) => {
       return {
         totalCount: 26,
-        page: 'abcdefghijklmnopqrstuvwxyz'.split('').slice(10 * (requestedPage - 1), 10 * requestedPage)
+        users: ALPHABET
+          .split('')
+          .map(x => ({login: x}))
+          .slice(10 * (requestedPage - 1), 10 * requestedPage)
       };
     });
   });
@@ -62,7 +69,7 @@ describe('AppComponent', () => {
   }
 
   it('should paginate 26 results into 3 pages', () => {
-    component.inputText = 'abcdefghijklmnopqrstuvwxyz';
+    component.inputText = ALPHABET;
     component.searchForUsers();
     fixture.detectChanges();
 
@@ -87,7 +94,7 @@ describe('AppComponent', () => {
   });
 
   it('should not alter results if search text is changed', () => {
-    component.inputText = 'abcdefghijklmnopqrstuvwxyz';
+    component.inputText = ALPHABET;
     component.searchForUsers();
     fixture.detectChanges();
 
@@ -107,6 +114,6 @@ describe('AppComponent', () => {
     fixture.detectChanges();
 
     confirmPageTwoOfAbc();
-    expect(component.inputText).toEqual('abcdefghijklmnopqrstuvwxyz');
+    expect(component.inputText).toEqual(ALPHABET);
   });
 });

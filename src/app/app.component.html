@@ -3,7 +3,7 @@
 <button (click)="searchForUsers()">Search</button>
 <p *ngIf="usersOnPage">Found {{totalCount}} results:</p>
 <div *ngFor="let user of usersOnPage" class="user-result">
-  {{user}}
+  {{user.login}}
 </div>
 <div class="pagination-controls">
   <button (click)="getPreviousResults()" *ngIf="hasPreviousPage" aria-label="Get previous page of results"

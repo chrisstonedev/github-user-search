@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {UserSearchService} from "./user-search.service";
+import {User, UserSearchService} from './user-search.service';
 
 @Component({
   selector: 'app-root',
@@ -10,7 +10,7 @@ export class AppComponent {
   inputText = '';
   searchText = '';
   totalCount = 0;
-  usersOnPage: string[] | undefined;
+  usersOnPage: User[] | undefined;
   currentPage = 0;
   hasPreviousPage = false;
   hasNextPage = false;
@@ -39,7 +39,7 @@ export class AppComponent {
   private getUsersAndProcessResults() {
     let result = this.userSearchService.getUsers(this.searchText, this.currentPage);
     this.totalCount = result.totalCount;
-    this.usersOnPage = result.page;
+    this.usersOnPage = result.users;
     this.hasPreviousPage = this.currentPage > 1;
     this.hasNextPage = this.totalCount > 10 * this.currentPage;
   }

@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {ApiService} from "./api.service";
+import {ApiService} from './api.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,14 +9,15 @@ export class UserSearchService {
   }
 
   getUsers(searchText: string, requestedPage: number): UserSearchResult {
-    let allUsers = this.apiService.getAllUsers(searchText);
-    let totalCount = allUsers.length
-    let page = allUsers.slice(10 * (requestedPage - 1), 10 * requestedPage);
-    return {totalCount, page}
+    return this.apiService.searchUsers(searchText, requestedPage);
   }
 }
 
 export interface UserSearchResult {
   totalCount: number;
-  page: string[];
+  users: User[];
+}
+
+export interface User {
+  login: string;
 }
