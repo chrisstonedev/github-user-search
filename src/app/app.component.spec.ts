@@ -3,21 +3,32 @@ import {AppComponent} from './app.component';
 import {FormsModule} from '@angular/forms';
 import {By} from '@angular/platform-browser';
 import {DebugElement} from '@angular/core';
+import {UserSearchService} from "./user-search.service";
 
 describe('AppComponent', () => {
   let component: AppComponent;
   let fixture: ComponentFixture<AppComponent>;
+  let service: UserSearchService;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [FormsModule],
       declarations: [AppComponent],
+      providers: [UserSearchService],
     }).compileComponents();
   });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(AppComponent);
     component = fixture.componentInstance;
+    service = TestBed.inject(UserSearchService);
+    spyOn(service, 'searchForUsers').and.returnValue({
+      totalCount: 26,
+      initialPage: 'abcdefghij'.split(''),
+    });
+    spyOn(service, 'getPage').and.callFake((searchText, requestedPage) => {
+      return 'abcdefghijklmnopqrstuvwxyz'.split('').slice(requestedPage * 10, 10 * (requestedPage + 1));
+    });
   });
 
   it('should create the app', () => {

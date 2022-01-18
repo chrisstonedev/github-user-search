@@ -11,36 +11,17 @@ export class UserSearchService {
   searchForUsers(searchText: string): UserSearchResult {
     let allUsers = this.apiService.getAllUsers(searchText);
     let totalCount = allUsers.length;
-    let users = allUsers.slice(0, 10);
-    let hasPreviousResults = false;
-    let hasNextResults = allUsers.length > 10;
-    return {totalCount, firstResult: {users, hasPreviousResults, hasNextResults}};
+    let initialPage = allUsers.slice(0, 10);
+    return {totalCount, initialPage};
   }
 
-  getPreviousResults(searchText: string, currentPage: number): PaginationResult {
+  getPage(searchText: string, requestedPage: number): string[] {
     let allUsers = this.apiService.getAllUsers(searchText);
-    let nextResults = true;
-    let users = allUsers.slice(10 * currentPage, 10 * (currentPage + 1));
-    let previousResults = currentPage > 0;
-    return {hasNextResults: nextResults, users, hasPreviousResults: previousResults};
-  }
-
-  getNextResults(searchText: string, currentPage: number): PaginationResult {
-    let allUsers = this.apiService.getAllUsers(searchText);
-    let previousResults = true;
-    let users = allUsers.slice(10 * currentPage, 10 * (currentPage + 1));
-    let nextResults = allUsers.length > 10 * (currentPage + 1);
-    return {hasPreviousResults: previousResults, users, hasNextResults: nextResults};
+    return allUsers.slice(10 * requestedPage, 10 * (requestedPage + 1));
   }
 }
 
 export interface UserSearchResult {
-  firstResult: PaginationResult;
+  initialPage: string[];
   totalCount: number;
-}
-
-export interface PaginationResult {
-  users: string[];
-  hasPreviousResults: boolean;
-  hasNextResults: boolean;
 }

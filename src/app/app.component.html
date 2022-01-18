@@ -1,17 +1,17 @@
 <label for="userSearch">Search for GitHub user</label>
 <input (keyup.enter)="searchForUsers()" [(ngModel)]="inputText" id="userSearch" type="text">
 <button (click)="searchForUsers()">Search</button>
-<p *ngIf="result">Found {{totalCount}} results:</p>
-<div *ngFor="let user of result?.users" class="user-result">
+<p *ngIf="usersOnPage">Found {{totalCount}} results:</p>
+<div *ngFor="let user of usersOnPage" class="user-result">
   {{user}}
 </div>
 <div class="pagination-controls">
-  <button (click)="getPreviousResults()" *ngIf="result?.hasPreviousResults" aria-label="Get previous page of results"
+  <button (click)="getPreviousResults()" *ngIf="hasPreviousPage" aria-label="Get previous page of results"
           id="previous" type="button">
     Previous
   </button>
-  <span *ngIf="result">Page {{currentPage + 1}}</span>
-  <button (click)="getNextResults()" *ngIf="result?.hasNextResults" aria-label="Get next page of results" id="next"
+  <span *ngIf="usersOnPage">Page {{currentPage + 1}}</span>
+  <button (click)="getNextResults()" *ngIf="hasNextPage" aria-label="Get next page of results" id="next"
           type="button">
     Next
   </button>

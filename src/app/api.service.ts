@@ -7,6 +7,6 @@ export class ApiService {
   constructor() { }
 
   getAllUsers(searchText: string): string[] {
-    return searchText.split('');
+    return [searchText];
   }
 }
