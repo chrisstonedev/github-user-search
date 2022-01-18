@@ -25,7 +25,7 @@ describe('ApiService', () => {
   it('should parse requested fields', () => {
     const testData: UserSearchResult = {
       total_count: 26,
-      items: [{url: ''}]
+      items: [{url: '', html_url: '', avatar_url: '', login: ''}]
     };
 
     httpSpy.get<UserSearchResult>(service.queryUrl)

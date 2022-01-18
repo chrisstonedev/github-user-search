@@ -58,9 +58,9 @@ export class AppComponent {
           });
         }
       },
-      error: error => {
+      error: err => {
         this.error = true;
-        console.error(error);
+        console.error(err);
       }
     });
   }

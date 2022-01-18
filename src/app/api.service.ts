@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {GetUserResult, UserSearchResult} from './user-search.service';
-import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
-import {Observable} from 'rxjs';
+import {HttpClient} from '@angular/common/http';
+import {map, Observable} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -13,25 +13,25 @@ export class ApiService {
   }
 
   searchUsers(searchText: string, requestedPage: number): Observable<UserSearchResult> {
-    let headers = new HttpHeaders({
-      'Accept': 'application/vnd.github.v3+json',
-      'Authorization': `Bearer ${process.env['GITHUB_ACCESS_TOKEN']}`
-    });
-    let params = new HttpParams({
-      fromObject: {
-        'q': searchText,
-        'per_page': 10,
-        'page': requestedPage
-      }
-    });
-    return this.http.get<UserSearchResult>(this.queryUrl, {headers, params});
+    return this.http.get<{ data: UserSearchResult }>('/.netlify/functions/getUsers', {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      params: {
+        'searchText': searchText,
+        'requestedPage': requestedPage,
+      },
+    }).pipe(map(x => x.data));
   }
 
   getUser(apiUrl: string): Observable<GetUserResult> {
-    let headers = new HttpHeaders({
-      'Accept': 'application/vnd.github.v3+json',
-      'Authorization': `Bearer ${process.env['GITHUB_ACCESS_TOKEN']}`
-    });
-    return this.http.get<GetUserResult>(apiUrl, {headers});
+    return this.http.get<{ data: GetUserResult }>('/.netlify/functions/getUser', {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      params: {
+        'apiUrl': apiUrl,
+      },
+    }).pipe(map(x => x.data));
   }
 }

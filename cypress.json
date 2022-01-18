@@ -5,6 +5,7 @@
   "screenshotsFolder": "cypress/screenshots",
   "pluginsFile": "cypress/plugins/index.ts",
   "fixturesFolder": "cypress/fixtures",
-  "baseUrl": "http://localhost:4200",
-  "experimentalStudio": true
+  "baseUrl": "http://localhost:8888",
+  "experimentalStudio": true,
+  "projectId": "4z8iyr"
 }

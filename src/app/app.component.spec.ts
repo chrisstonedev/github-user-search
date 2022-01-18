@@ -33,7 +33,7 @@ describe('AppComponent', () => {
         total_count: 26,
         items: ALPHABET
           .split('')
-          .map(x => ({url: x}))
+          .map(x => ({url: x, html_url: '', avatar_url: '', login: x}))
           .slice(10 * (requestedPage - 1), 10 * requestedPage)
       });
     });
