@@ -1,15 +1,15 @@
 import {Injectable} from '@angular/core';
+import {ApiService} from "./api.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserSearchService {
-  private static getAllUsers(searchText: string): string[] {
-    return searchText.split('');
+  constructor(private apiService: ApiService) {
   }
 
   searchForUsers(searchText: string): UserSearchResult {
-    let allUsers = UserSearchService.getAllUsers(searchText);
+    let allUsers = this.apiService.getAllUsers(searchText);
     let totalCount = allUsers.length;
     let users = allUsers.slice(0, 10);
     let hasPreviousResults = false;
@@ -18,7 +18,7 @@ export class UserSearchService {
   }
 
   getPreviousResults(searchText: string, currentPage: number): PaginationResult {
-    let allUsers = UserSearchService.getAllUsers(searchText);
+    let allUsers = this.apiService.getAllUsers(searchText);
     let nextResults = true;
     let users = allUsers.slice(10 * currentPage, 10 * (currentPage + 1));
     let previousResults = currentPage > 0;
@@ -26,7 +26,7 @@ export class UserSearchService {
   }
 
   getNextResults(searchText: string, currentPage: number): PaginationResult {
-    let allUsers = UserSearchService.getAllUsers(searchText);
+    let allUsers = this.apiService.getAllUsers(searchText);
     let previousResults = true;
     let users = allUsers.slice(10 * currentPage, 10 * (currentPage + 1));
     let nextResults = allUsers.length > 10 * (currentPage + 1);
