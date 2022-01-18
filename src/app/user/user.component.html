@@ -4,14 +4,14 @@
     <div>
       <h2>{{user.login}}</h2>
       <h3>{{user.name}}</h3>
-      <div><a [href]="user.html_url" rel="nofollow" target="_blank">Go to profile</a></div>
+      <div><a [href]="user.html_url" rel="nofollow" target="_blank">View GitHub profile</a></div>
     </div>
-    <div *ngIf="user.public_repos">
+    <div *ngIf="user.public_repos" class="additional-details">
       <div>Public repos: {{user.public_repos}}<br>
         Following: {{user.following}}<br>
         Followers: {{user.followers}}</div>
     </div>
-    <div *ngIf="user.public_repos">
+    <div *ngIf="user.public_repos" class="additional-details">
       <ng-container *ngIf="user.company"><span aria-label="Company" role="img">💼</span> {{user.company}}<br>
       </ng-container>
       <ng-container *ngIf="user.location"><span aria-label="Location" role="img">🌎</span> {{user.location}}<br>

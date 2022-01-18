@@ -13,7 +13,13 @@ img {
   height: 75px;
 }
 
-h2, h3 {
+h2 {
+  font-weight: 600;
+  margin: 0;
+}
+
+h3 {
+  font-weight: 500;
   margin: 0;
 }
 
@@ -23,8 +29,21 @@ h2, h3 {
   gap: 16px;
 }
 
+.additional-details {
+  margin: 4px 0 0;
+}
+
 p {
-  margin: 0 0 8px;
+  margin: 0 16px 8px;
+}
+
+a {
+  color: #060;
+  font-weight: 700;
+
+  &:hover {
+    color: #0a0;
+  }
 }
 
 @media (max-width: 600px) {
