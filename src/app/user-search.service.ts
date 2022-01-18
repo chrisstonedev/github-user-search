@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {ApiService} from './api.service';
-import {Observable} from "rxjs";
+import {Observable} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -21,4 +21,7 @@ export interface UserSearchResult {
 
 export interface User {
   login: string;
+  avatar_url: string;
+  url: string;
+  html_url: string;
 }

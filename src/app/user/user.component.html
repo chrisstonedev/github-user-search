@@ -1,0 +1,7 @@
+<div class="container" *ngIf="user">
+  <img [alt]="'Profile avatar for ' + user?.login" [src]="user.avatar_url">
+  <div class="user-info">
+    <h2>{{user?.login}}</h2>
+    <div><a [href]="user.html_url" target="_blank" rel="nofollow">Go to profile</a></div>
+  </div>
+</div>

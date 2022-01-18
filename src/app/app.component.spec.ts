@@ -3,9 +3,10 @@ import {AppComponent} from './app.component';
 import {FormsModule} from '@angular/forms';
 import {By} from '@angular/platform-browser';
 import {DebugElement} from '@angular/core';
-import {UserSearchService} from './user-search.service';
+import {User, UserSearchService} from './user-search.service';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
-import {of} from "rxjs";
+import {of} from 'rxjs';
+import {UserComponent} from './user/user.component';
 
 // noinspection SpellCheckingInspection
 const ALPHABET = 'abcdefghijklmnopqrstuvwxyz';
@@ -18,7 +19,7 @@ describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [FormsModule, HttpClientTestingModule],
-      declarations: [AppComponent],
+      declarations: [AppComponent, UserComponent],
       providers: [UserSearchService],
     }).compileComponents();
   });
@@ -28,11 +29,12 @@ describe('AppComponent', () => {
     component = fixture.componentInstance;
     service = TestBed.inject(UserSearchService);
     spyOn(service, 'getUsers').and.callFake((searchText, requestedPage) => {
+      let userObject: User;
       return of({
         total_count: 26,
         items: ALPHABET
           .split('')
-          .map(x => ({login: x}))
+          .map(x => ({...userObject, login: x}))
           .slice(10 * (requestedPage - 1), 10 * requestedPage)
       });
     });
@@ -64,7 +66,7 @@ describe('AppComponent', () => {
   function confirmPageTwoOfAbc() {
     expect(innerHtmlOf('span')).toContain('Page 2');
     expect(fixture.debugElement.queryAll(By.css('.user-result')).length).toEqual(10);
-    expect(innerHtmlOf('.user-result:nth-of-type(1)')).toContain('k');
+    expect(innerHtmlOf('.user-result:nth-of-type(1) h2')).toContain('k');
     expect(getByCss('button#previous')).toBeTruthy();
     expect(getByCss('button#next')).toBeTruthy();
   }
@@ -77,7 +79,7 @@ describe('AppComponent', () => {
     expect(innerHtmlOf('p')).toContain('Found 26 results:');
     expect(innerHtmlOf('span')).toContain('Page 1');
     expect(fixture.debugElement.queryAll(By.css('.user-result')).length).toEqual(10);
-    expect(innerHtmlOf('.user-result:nth-of-type(1)')).toContain('a');
+    expect(innerHtmlOf('.user-result:nth-of-type(1) h2')).toContain('a');
     expect(getByCss('button#previous')).toBeNull();
     expect(getByCss('button#next')).toBeTruthy();
     component.getNextResults();
@@ -89,7 +91,7 @@ describe('AppComponent', () => {
 
     expect(innerHtmlOf('span')).toContain('Page 3');
     expect(fixture.debugElement.queryAll(By.css('.user-result')).length).toEqual(6);
-    expect(innerHtmlOf('.user-result:nth-of-type(1)')).toContain('u');
+    expect(innerHtmlOf('.user-result:nth-of-type(1) h2')).toContain('u');
     expect(getByCss('button#previous')).toBeTruthy();
     expect(getByCss('button#next')).toBeNull()
   });

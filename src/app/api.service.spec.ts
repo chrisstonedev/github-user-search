@@ -23,7 +23,10 @@ describe('ApiService', () => {
   });
 
   it('should parse requested fields', () => {
-    const testData: UserSearchResult = {total_count: 26, items: [{login: 'Test Data'}]};
+    const testData: UserSearchResult = {
+      total_count: 26,
+      items: [{login: 'Test Data', html_url: '', url: '', avatar_url: ''}]
+    };
 
     httpSpy.get<UserSearchResult>(service.queryUrl)
       .subscribe(data =>

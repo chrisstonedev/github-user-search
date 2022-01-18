@@ -1,0 +1,17 @@
+.container {
+  border: 1px solid black;
+  border-radius: 4px;
+  box-shadow: #0008 4px 4px 4px;
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+}
+
+img {
+  width: 75px;
+  height: 75px;
+}
+
+h2 {
+  margin: 0;
+}

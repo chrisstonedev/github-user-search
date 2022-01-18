@@ -2,8 +2,8 @@
 <input (keyup.enter)="searchForUsers()" [(ngModel)]="inputText" id="userSearch" type="text">
 <button (click)="searchForUsers()">Search</button>
 <p *ngIf="usersOnPage">Found {{totalCount}} results:</p>
-<div *ngFor="let user of usersOnPage" class="user-result">
-  {{user.login}}
+<div class="user-results">
+  <app-user *ngFor="let user of usersOnPage" [user]="user" class="user-result"></app-user>
 </div>
 <div class="pagination-controls">
   <button (click)="getPreviousResults()" *ngIf="hasPreviousPage" aria-label="Get previous page of results"

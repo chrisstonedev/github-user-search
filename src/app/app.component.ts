@@ -10,7 +10,7 @@ export class AppComponent {
   inputText = '';
   searchText = '';
   totalCount = 0;
-  usersOnPage: User[] | undefined;
+  usersOnPage?: User[];
   currentPage = 0;
   hasPreviousPage = false;
   hasNextPage = false;
