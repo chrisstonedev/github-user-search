@@ -4,6 +4,8 @@
   <input (keyup.enter)="searchForUsers()" [(ngModel)]="inputText" id="userSearch" type="text">
   <button (click)="searchForUsers()">Search</button>
 </div>
+<p *ngIf="error">Oh no! There seems to be an error retrieving results. This may be caused by a rate limit on the GitHub
+  API. Please come back soon and try again.</p>
 <p *ngIf="usersOnPage" class="total-count">Found {{totalCount}} {{totalCount === 1 ? 'result' : 'results'}}:</p>
 <div class="user-results">
   <app-user *ngFor="let user of usersOnPage" [user]="user" class="user-result"></app-user>
@@ -19,3 +21,4 @@
     Next
   </button>
 </div>
+<div class="credit">Created by <a href="https://github.com/chrisstonedev">chrisstonedev</a>.</div>

@@ -14,6 +14,7 @@ export class AppComponent {
   currentPage = 0;
   hasPreviousPage = false;
   hasNextPage = false;
+  error = false;
 
   constructor(private userSearchService: UserSearchService) {
   }
@@ -42,19 +43,23 @@ export class AppComponent {
         this.totalCount = result.total_count;
         this.hasPreviousPage = this.currentPage > 1;
         this.hasNextPage = this.totalCount > 10 * this.currentPage;
-        this.usersOnPage = [];
+        this.usersOnPage = result.items.map(x => ({login: x.login, avatar_url: x.avatar_url, html_url: x.html_url}));
         for (let item of result.items) {
           this.userSearchService.getUser(item.url).subscribe({
             next: value => {
-              this.usersOnPage!.push(value);
+              let itemToReplace = this.usersOnPage!.find(x => x.login === value.login)!;
+              let index = this.usersOnPage!.indexOf(itemToReplace);
+              this.usersOnPage![index] = value;
             },
             error: err => {
+              this.error = true;
               console.error(err);
             }
           });
         }
       },
       error: error => {
+        this.error = true;
         console.error(error);
       }
     });

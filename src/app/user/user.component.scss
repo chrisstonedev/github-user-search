@@ -4,7 +4,7 @@
   border-radius: 4px;
   box-shadow: #0008 4px 4px 4px;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   gap: 8px;
 }
 
@@ -15,4 +15,20 @@ img {
 
 h2, h3 {
   margin: 0;
+}
+
+.main-content {
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+}
+
+p {
+  margin: 0 0 8px;
+}
+
+@media (max-width: 600px) {
+  .main-content {
+    flex-direction: column;
+  }
 }

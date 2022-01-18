@@ -24,19 +24,22 @@ export interface UserSearchResult {
 }
 
 export interface UserSearchItem {
+  login: string;
+  avatar_url: string;
   url: string;
+  html_url: string;
 }
 
 export interface GetUserResult {
   login: string;
   avatar_url: string;
   html_url: string;
-  name: string;
-  company: string;
-  blog: string;
-  location: string;
-  bio: string;
-  public_repos: number;
-  followers: number;
-  following: number;
+  name?: string;
+  company?: string;
+  blog?: string;
+  location?: string;
+  bio?: string;
+  public_repos?: number;
+  followers?: number;
+  following?: number;
 }

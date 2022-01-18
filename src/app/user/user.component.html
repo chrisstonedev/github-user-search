@@ -1,8 +1,23 @@
-<div class="container" *ngIf="user">
-  <img [alt]="'Profile avatar for ' + user.login" [src]="user.avatar_url">
-  <div class="user-info">
-    <h2>{{user.login}}</h2>
-    <h3>{{user.name}}</h3>
-    <div><a [href]="user.html_url" target="_blank" rel="nofollow">Go to profile</a></div>
+<div *ngIf="user" class="container">
+  <div class="main-content">
+    <img [alt]="'Profile avatar for ' + user.login" [src]="user.avatar_url">
+    <div>
+      <h2>{{user.login}}</h2>
+      <h3>{{user.name}}</h3>
+      <div><a [href]="user.html_url" rel="nofollow" target="_blank">Go to profile</a></div>
+    </div>
+    <div *ngIf="user.public_repos">
+      <div>Public repos: {{user.public_repos}}<br>
+        Following: {{user.following}}<br>
+        Followers: {{user.followers}}</div>
+    </div>
+    <div *ngIf="user.public_repos">
+      <ng-container *ngIf="user.company"><span aria-label="Company" role="img">💼</span> {{user.company}}<br>
+      </ng-container>
+      <ng-container *ngIf="user.location"><span aria-label="Location" role="img">🌎</span> {{user.location}}<br>
+      </ng-container>
+      <ng-container *ngIf="user.blog"><span aria-label="Blog" role="img">📕</span> {{user.blog}}</ng-container>
+    </div>
   </div>
+  <p *ngIf="user.bio">{{user.bio}}</p>
 </div>
